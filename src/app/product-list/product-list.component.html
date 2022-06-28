@@ -48,7 +48,9 @@
             <td>{{ p.productCode }}</td>
             <td>{{ p.releaseDate }}</td>
             <td>{{ p.price }}</td>
-            <td>{{ p.starRating }}</td>
+            <td>
+              <app-star [rating]="p.starRating"></app-star>
+            </td>
           </tr>
         </tbody>
       </table>
