@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from './product';
 
 @Component({
   selector: 'app-product-list',
@@ -10,7 +11,9 @@ export class ProductListComponent implements OnInit {
   imgWidth = 50;
   imgMargin = 2;
   showImg = false;
-  products: any[] = [
+  private _listFilter = '';
+
+  products: Product[] = [
     {
       productId: 1,
       productName: 'Leaf Rake',
@@ -62,11 +65,29 @@ export class ProductListComponent implements OnInit {
       imageUrl: 'assets/images/xbox-controller.png',
     },
   ];
+  filteredAns: Product[] = this.products;
   toggleImg(): void {
     this.showImg = !this.showImg;
+  }
+  get listFilter(): string {
+    return this._listFilter;
+    console.log('in getter');
+  }
+  set listFilter(value: string) {
+    this._listFilter = value;
+    this.filteredAns = this.productFilter(value);
+    console.log('in setter');
   }
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  productFilter(value: string): Product[] {
+    value = value.toLowerCase();
+    return this.products.filter((prod: Product) =>
+      prod.productName.toLowerCase().includes(value)
+    );
+    return this.filteredAns;
+  }
 }
